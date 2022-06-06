@@ -1,54 +1,42 @@
 package ru.geekbrains.dictionary.ui
 
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
+import androidx.lifecycle.LiveData
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import ru.geekbrains.dictionary.data.AppState
 import ru.geekbrains.dictionary.data.RepositoryImpl
 import ru.geekbrains.dictionary.domain.DataSourceLocal
 import ru.geekbrains.dictionary.domain.DataSourceRemote
-import ru.geekbrains.dictionary.domain.SchedulerProvider
 
-class MainPresenter<T : AppState, V : MainContracts.View>(
+class MainViewModel(
     private val interactor: MainInteractor = MainInteractor(
         RepositoryImpl(DataSourceRemote()),
         RepositoryImpl(DataSourceLocal())
-    ),
-    protected val schedulerProvider: SchedulerProvider = SchedulerProvider(),
-    protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
-) : MainContracts.Presenter<T, V> {
+    )
+) : BaseViewModel<AppState>() {
 
-    private var view: V? = null
+    private var appState: AppState? = null
 
-    override fun onAttach(view: V) {
-        this.view = view
-    }
-
-    override fun onDetach(view: V) {
-        this.view = null
-    }
-
-    override fun getData(word: String, isOnline: Boolean) {
+    override fun getData(word: String, isOnline: Boolean): LiveData<AppState> {
         compositeDisposable.add(
             interactor.getData(word, isOnline)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .doOnSubscribe { view?.renderData(AppState.Loading(null)) }
+                .doOnSubscribe { liveDataForViewToObserve.value = AppState.Loading(null) }
                 .subscribeWith(getObserver())
         )
+        return super.getData(word, isOnline)
     }
 
     private fun getObserver(): DisposableObserver<AppState> {
         return object : DisposableObserver<AppState>() {
 
-            override fun onNext(appState: AppState) {
-                view?.renderData(appState)
+            override fun onNext(state: AppState) {
+                appState = state
+                liveDataForViewToObserve.value = state
             }
 
             override fun onError(e: Throwable) {
-                view?.renderData(AppState.Error(e))
+                liveDataForViewToObserve.value = AppState.Error(e)
             }
 
             override fun onComplete() {

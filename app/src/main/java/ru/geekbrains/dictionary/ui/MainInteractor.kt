@@ -6,7 +6,7 @@ import ru.geekbrains.dictionary.data.DataModel
 import ru.geekbrains.dictionary.domain.Interactor
 import ru.geekbrains.dictionary.domain.Repository
 
-class MainInteractor (
+class MainInteractor(
     private val remoteRepository: Repository<List<DataModel>>,
     private val localRepository: Repository<List<DataModel>>
 ) : Interactor<AppState> {

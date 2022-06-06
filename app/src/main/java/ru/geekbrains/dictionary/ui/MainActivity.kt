@@ -1,12 +1,9 @@
 package ru.geekbrains.dictionary.ui
 
 import android.graphics.Color.*
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import ru.geekbrains.dictionary.R
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import ru.geekbrains.dictionary.data.AppState
 import ru.geekbrains.dictionary.databinding.ActivityMainBinding
 
@@ -14,18 +11,19 @@ class MainActivity : BaseActivity<AppState>() {
 
     private lateinit var binding: ActivityMainBinding
 
+    override val model: MainViewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
+    }
+    private val observer = Observer<AppState> { renderData(it) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.searchButtonActivityMain.setOnClickListener {
             var word = binding.wordEditText.text.toString()
-            presenter.getData(word, true)
+            model.getData(word, true).observe(this@MainActivity, observer)
         }
-    }
-
-    override fun createPresenter(): MainContracts.Presenter<AppState, MainContracts.View> {
-        return MainPresenter()
     }
 
     override fun renderData(appState: AppState) {
@@ -36,7 +34,8 @@ class MainActivity : BaseActivity<AppState>() {
                     binding.resultTextView.text = "Response from server is empty"
                     binding.resultTextView.setTextColor(RED)
                 } else {
-                    binding.resultTextView.text = dataModel[0].meanings?.get(0)?.translation?.translation
+                    binding.resultTextView.text =
+                        dataModel[0].meanings?.get(0)?.translation?.translation
                     binding.resultTextView.setTextColor(DKGRAY)
                 }
             }
