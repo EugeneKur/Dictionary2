@@ -3,27 +3,22 @@ package ru.geekbrains.dictionary.ui
 import android.graphics.Color.*
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import ru.geekbrains.dictionary.data.AppState
 import ru.geekbrains.dictionary.databinding.ActivityMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState>() {
 
     private lateinit var binding: ActivityMainBinding
 
-    override val model: MainViewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
-    }
-    private val observer = Observer<AppState> { renderData(it) }
+    override lateinit var model: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.searchButtonActivityMain.setOnClickListener {
-            var word = binding.wordEditText.text.toString()
-            model.getData(word, true).observe(this@MainActivity, observer)
-        }
+        iniViewModel()
+        initViews()
     }
 
     override fun renderData(appState: AppState) {
@@ -49,4 +44,20 @@ class MainActivity : BaseActivity<AppState>() {
             }
         }
     }
+
+    private fun initViews() {
+        binding.searchButtonActivityMain.setOnClickListener {
+            var word = binding.wordEditText.text.toString()
+            model.getData(word, true)
+        }
+    }
+
+    private fun iniViewModel() {
+        val viewModel: MainViewModel by viewModel()
+        model = viewModel
+        model.subscribe().observe(this@MainActivity, Observer<AppState> {
+            renderData(it)
+        })
+    }
+
 }
