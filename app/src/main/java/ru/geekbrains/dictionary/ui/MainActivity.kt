@@ -5,6 +5,9 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.lifecycle.Observer
+import coil.ImageLoader
+import coil.request.LoadRequest
+import coil.transform.CircleCropTransformation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -118,13 +121,33 @@ class MainActivity : BaseActivity<AppState>() {
             .into(imageView)
     }
 
+    private fun useCoilToLoadPhoto(imageView: ImageView, imageLink: String) {
+        val request = LoadRequest.Builder(this)
+            .data("https:$imageLink")
+            .target(
+                onStart = {},
+                onSuccess = { result ->
+                    imageView.setImageDrawable(result)
+                },
+                onError = {
+                    imageView.setImageResource(R.drawable.ic_error)
+                }
+            )
+            .transformations(
+                CircleCropTransformation(),
+            )
+            .build()
+        ImageLoader(this).execute(request)
+    }
+
+
     private fun setImage(imageLink: String?) {
         if (imageLink.isNullOrBlank()) {
             binding.descriptionImageview.setImageResource(R.drawable.ic_error)
         } else {
-            usePicassoToLoadPhoto(binding.descriptionImageview, imageLink)
+            //usePicassoToLoadPhoto(binding.descriptionImageview, imageLink)
             //useGlideToLoadPhoto(binding.descriptionImageview, imageLink)
-            //useCoilToLoadPhoto(binding.descriptionImageview, imageLink)
+            useCoilToLoadPhoto(binding.descriptionImageview, imageLink)
         }
     }
 
