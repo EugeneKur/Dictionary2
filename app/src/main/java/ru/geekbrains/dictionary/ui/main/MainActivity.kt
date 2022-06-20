@@ -23,11 +23,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.geekbrains.dictionary.R
 import ru.geekbrains.dictionary.ui.base.BaseActivity
 import ru.geekbrains.dictionary.ui.history.HistoryActivity
+import ru.geekbrains.dictionary.utils.isOnline
 
 class MainActivity : BaseActivity<AppState>() {
 
     private lateinit var binding: ActivityMainBinding
-
+    protected var isNetworkAvailable: Boolean = false
     override lateinit var model: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,10 +67,12 @@ class MainActivity : BaseActivity<AppState>() {
     private fun initViews() {
         binding.searchButtonActivityMain.setOnClickListener {
             var word = binding.wordEditText.text.toString()
-            model.getData(word, true)
+            isNetworkAvailable = isOnline(applicationContext)
+            model.getData(word, isNetworkAvailable)
         }
         binding.historyButtonActivityMain.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
+            true
         }
     }
 

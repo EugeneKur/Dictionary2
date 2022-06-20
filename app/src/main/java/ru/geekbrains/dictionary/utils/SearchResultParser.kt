@@ -61,11 +61,16 @@ private fun getSuccessResultData(
     }
 }
 
-private fun parseOnlineResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
+private fun parseOnlineResult(
+    dataModel: DataModel, newDataModels:
+    ArrayList<DataModel>
+) {
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
         val newMeanings = arrayListOf<Meanings>()
         for (meaning in dataModel.meanings) {
-            if (meaning.translation != null && !meaning.translation.translation.isNullOrBlank()) {
+            if (meaning.translation != null &&
+                !meaning.translation.translation.isNullOrBlank()
+            ) {
                 newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
             }
         }
@@ -89,7 +94,8 @@ fun convertDataModelSuccessToEntity(appState: AppState): HistoryEntity? {
     return when (appState) {
         is AppState.Success -> {
             val searchResult = appState.data
-            if (searchResult.isNullOrEmpty() || searchResult[0].text.isNullOrEmpty()) {
+            if (searchResult.isNullOrEmpty() || searchResult[0].text.isNullOrEmpty())
+            {
                 null
             } else {
                 HistoryEntity(searchResult[0].text!!, null)
@@ -98,6 +104,7 @@ fun convertDataModelSuccessToEntity(appState: AppState): HistoryEntity? {
         else -> null
     }
 }
+
 
 private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
