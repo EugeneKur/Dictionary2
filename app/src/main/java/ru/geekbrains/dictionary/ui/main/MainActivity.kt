@@ -1,5 +1,6 @@
-package ru.geekbrains.dictionary.ui
+package ru.geekbrains.dictionary.ui.main
 
+import android.content.Intent
 import android.graphics.Color.*
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -20,7 +21,8 @@ import ru.geekbrains.dictionary.data.AppState
 import ru.geekbrains.dictionary.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.geekbrains.dictionary.R
-import ru.geekbrains.dictionary.utils.isOnline
+import ru.geekbrains.dictionary.ui.base.BaseActivity
+import ru.geekbrains.dictionary.ui.history.HistoryActivity
 
 class MainActivity : BaseActivity<AppState>() {
 
@@ -65,6 +67,9 @@ class MainActivity : BaseActivity<AppState>() {
         binding.searchButtonActivityMain.setOnClickListener {
             var word = binding.wordEditText.text.toString()
             model.getData(word, true)
+        }
+        binding.historyButtonActivityMain.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
     }
 

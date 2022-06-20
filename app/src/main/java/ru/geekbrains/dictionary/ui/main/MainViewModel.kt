@@ -1,11 +1,14 @@
-package ru.geekbrains.dictionary.ui
+package ru.geekbrains.dictionary.ui.main
 
+import android.webkit.WebChromeClient.FileChooserParams.parseResult
 import androidx.lifecycle.LiveData
+import geekbrains.ru.translator.utils.parseOnlineSearchResults
 import geekbrains.ru.translator.utils.parseSearchResults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.geekbrains.dictionary.data.AppState
+import ru.geekbrains.dictionary.ui.base.BaseViewModel
 
 
 class MainViewModel(private val interactor: MainInteractor) :

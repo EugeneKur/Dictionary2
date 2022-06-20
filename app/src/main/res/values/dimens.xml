@@ -2,4 +2,6 @@
 <resources>
     <dimen name="size_text">20sp</dimen>
     <dimen name="margin_medium">5dp</dimen>
+    <dimen name="hairline">1px</dimen>
+    <dimen name="margin_small">10dp</dimen>
 </resources>

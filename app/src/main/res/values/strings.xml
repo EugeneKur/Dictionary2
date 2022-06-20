@@ -4,4 +4,5 @@
     <string name="text_authentication_editText">Введите слово</string>
     <string name="text_button_activity_main">Искать</string>
     <string name="image_stub">image</string>
+    <string name="text_history_button_activity_main">история</string>
 </resources>

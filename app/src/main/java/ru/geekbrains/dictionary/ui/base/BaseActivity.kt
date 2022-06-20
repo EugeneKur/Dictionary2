@@ -1,4 +1,4 @@
-package ru.geekbrains.dictionary.ui
+package ru.geekbrains.dictionary.ui.base
 
 import androidx.appcompat.app.AppCompatActivity
 import ru.geekbrains.dictionary.data.AppState
