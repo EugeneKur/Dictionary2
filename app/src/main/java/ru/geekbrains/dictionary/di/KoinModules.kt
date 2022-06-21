@@ -27,15 +27,11 @@ import ru.geekbrains.dictionary.ui.main.MainViewModel
 //}
 
 val application = module {
-    single {
-        Room.databaseBuilder(get(), HistoryDataBase::class.java, "HistoryDB").build()
-    }
-    single {
-        get<HistoryDataBase>().historyDao()
-    }
+    single { Room.databaseBuilder(get(), HistoryDataBase::class.java,
+        "HistoryDB").build() }
+    single { get<HistoryDataBase>().historyDao() }
     single<Repository<List<DataModel>>> {
-        RepositoryImpl(RetrofitImpl())
-    }
+        RepositoryImpl(RetrofitImpl()) }
     single<RepositoryLocal<List<DataModel>>> {
         RepositoryLocalImpl(RoomDataBaseImpl(get()))
     }

@@ -9,7 +9,7 @@ abstract class BaseViewModel<T : AppState>(
     protected open val _mutableLiveData: MutableLiveData<T> = MutableLiveData()
 ) : ViewModel() {
     protected val viewModelCoroutineScope = CoroutineScope(
-        Dispatchers.Main
+        Dispatchers.IO
                 + SupervisorJob()
                 + CoroutineExceptionHandler { _, throwable ->
             handleError(throwable)

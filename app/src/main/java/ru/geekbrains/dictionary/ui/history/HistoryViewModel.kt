@@ -8,6 +8,7 @@ import ru.geekbrains.dictionary.ui.base.BaseViewModel
 
 class HistoryViewModel(private val interactor: HistoryInteractor) :
     BaseViewModel<AppState>() {
+
     private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
     fun subscribe(): LiveData<AppState> {
@@ -21,8 +22,7 @@ class HistoryViewModel(private val interactor: HistoryInteractor) :
     }
 
     private suspend fun startInteractor(word: String, isOnline: Boolean) {
-        _mutableLiveData.postValue(parseLocalSearchResults(interactor.getData(word,
-            isOnline)))
+        _mutableLiveData.postValue(parseLocalSearchResults(interactor.getData(word, isOnline)))
     }
 
     override fun handleError(error: Throwable) {
@@ -33,5 +33,4 @@ class HistoryViewModel(private val interactor: HistoryInteractor) :
         _mutableLiveData.value = AppState.Success(null)
         super.onCleared()
     }
-
 }

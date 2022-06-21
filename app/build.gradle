@@ -66,9 +66,9 @@ dependencies {
     implementation "io.insert-koin:koin-android-compat:$koin_version"
 
     //Test
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //Download images
@@ -80,9 +80,9 @@ dependencies {
     //Coil
     implementation 'io.coil-kt:coil:0.11.0'
     //Room
-    implementation 'androidx.room:room-runtime:2.3.0'
-    kapt 'androidx.room:room-compiler:2.3.0'
-    implementation 'androidx.room:room-ktx:2.3.0'
+    implementation 'androidx.room:room-runtime:2.4.2'
+    kapt 'androidx.room:room-compiler:2.4.2'
+    implementation 'androidx.room:room-ktx:2.4.2'
 
 
 

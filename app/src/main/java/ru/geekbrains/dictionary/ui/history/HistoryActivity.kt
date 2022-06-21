@@ -51,7 +51,6 @@ class HistoryActivity : BaseActivity<AppState>() {
 
     override fun renderData(appState: AppState) {
         when (appState) {
-
             is AppState.Success -> {
                 appState.data?.let {
                     if (it.isEmpty()) {
@@ -65,7 +64,8 @@ class HistoryActivity : BaseActivity<AppState>() {
                 Toast.makeText(this@HistoryActivity, "Загрузка", Toast.LENGTH_SHORT).show()
             }
             is AppState.Error -> {
-                Toast.makeText(this@HistoryActivity, "Ошибка", Toast.LENGTH_SHORT).show()
+                var message = appState.error.message
+                Toast.makeText(this@HistoryActivity, message, Toast.LENGTH_SHORT).show()
             }
         }
     }
