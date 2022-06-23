@@ -1,7 +1,6 @@
 package ru.geekbrains.dictionary.di
 
 import androidx.room.Room
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ru.geekbrains.dictionary.data.DataModel
 import ru.geekbrains.dictionary.data.RepositoryImpl

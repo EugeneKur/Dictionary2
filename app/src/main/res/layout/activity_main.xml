@@ -18,7 +18,7 @@
         android:textSize="@dimen/size_text"
         android:textStyle="bold"
         android:textColor="@color/color_text"/>
-    <ru.geekbrains.dictionary.utils.EquilateralImageView
+    <ru.geekbrains.utils.EquilateralImageView
         android:id="@+id/description_imageview"
         android:layout_width="match_parent"
         android:layout_marginStart="@dimen/margin_medium"

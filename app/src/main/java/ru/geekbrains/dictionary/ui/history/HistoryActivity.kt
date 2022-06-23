@@ -10,6 +10,7 @@ import ru.geekbrains.dictionary.databinding.ActivityHistoryBinding
 import ru.geekbrains.dictionary.ui.base.BaseActivity
 import ru.geekbrains.dictionary.utils.isOnline
 
+
 class HistoryActivity : BaseActivity<AppState>() {
 
     private lateinit var binding: ActivityHistoryBinding

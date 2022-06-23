@@ -1,4 +1,4 @@
-package ru.geekbrains.dictionary.utils
+package ru.geekbrains.utils
 
 import android.content.Context
 import android.util.AttributeSet
