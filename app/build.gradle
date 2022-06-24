@@ -45,9 +45,9 @@ dependencies {
 //    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
 // Koin for Android
     implementation Koin.koin_android
-//    implementation Koin.koin_view_model
-    implementation Koin.koin_core
-    implementation Koin.koin_android_compat
+    implementation Koin.koin_view_model
+//    implementation Koin.koin_core
+//    implementation Koin.koin_android_compat
     //    def koin_version = "3.1.2"
 //    //Koin core features
 //    implementation "io.insert-koin:koin-core:$koin_version"

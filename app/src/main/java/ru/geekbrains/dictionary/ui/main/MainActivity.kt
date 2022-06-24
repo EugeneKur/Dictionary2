@@ -10,9 +10,10 @@ import coil.request.LoadRequest
 import coil.transform.CircleCropTransformation
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import org.koin.android.scope.currentScope
 import ru.geekbrains.dictionary.data.AppState
 import ru.geekbrains.dictionary.databinding.ActivityMainBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.geekbrains.dictionary.R
 import ru.geekbrains.dictionary.ui.base.BaseActivity
 import ru.geekbrains.dictionary.ui.history.HistoryActivity
@@ -70,7 +71,8 @@ class MainActivity : BaseActivity<AppState>() {
     }
 
     private fun iniViewModel() {
-        val viewModel: MainViewModel by viewModel()
+        val viewModel: MainViewModel by currentScope.inject()
+
         model = viewModel
         model.subscribe().observe(this@MainActivity, Observer<AppState> {
             renderData(it)
@@ -90,37 +92,6 @@ class MainActivity : BaseActivity<AppState>() {
             })
     }
 
-//    private fun useGlideToLoadPhoto(imageView: ImageView, imageLink: String) {
-//        Glide.with(imageView)
-//            .load("https:$imageLink")
-//            .listener(object : RequestListener<Drawable> {
-//                override fun onLoadFailed(
-//                    e: GlideException?,
-//                    model: Any?,
-//                    target: Target<Drawable>?,
-//                    isFirstResource: Boolean
-//                ): Boolean {
-//                    imageView.setImageResource(R.drawable.ic_error)
-//                    return false
-//                }
-//
-//                override fun onResourceReady(
-//                    resource: Drawable?,
-//                    model: Any?,
-//                    target: Target<Drawable>?,
-//                    dataSource: DataSource?,
-//                    isFirstResource: Boolean
-//                ): Boolean {
-//                    return false
-//                }
-//            })
-//            .apply(
-//                RequestOptions()
-//                    .placeholder(R.drawable.ic_error)
-//                    .centerCrop()
-//            )
-//            .into(imageView)
-//    }
 
     private fun useCoilToLoadPhoto(imageView: ImageView, imageLink: String) {
         val request = LoadRequest.Builder(this)
@@ -146,8 +117,6 @@ class MainActivity : BaseActivity<AppState>() {
         if (imageLink.isNullOrBlank()) {
             binding.descriptionImageview.setImageResource(R.drawable.ic_error)
         } else {
-            //usePicassoToLoadPhoto(binding.descriptionImageview, imageLink)
-            //useGlideToLoadPhoto(binding.descriptionImageview, imageLink)
             useCoilToLoadPhoto(binding.descriptionImageview, imageLink)
         }
     }

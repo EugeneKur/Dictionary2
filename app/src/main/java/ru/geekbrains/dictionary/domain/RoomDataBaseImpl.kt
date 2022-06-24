@@ -20,10 +20,3 @@ class RoomDataBaseImpl(private val historyDao: HistoryDao) :
         }
     }
 }
-
-//class RoomDataBaseImpl : DataSource<List<DataModel>> {
-//
-//    override suspend fun getData(word: String): List<DataModel> {
-//        TODO("not implemented")
-//    }
-//}

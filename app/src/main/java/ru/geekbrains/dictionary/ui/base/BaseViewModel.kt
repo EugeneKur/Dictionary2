@@ -26,6 +26,5 @@ abstract class BaseViewModel<T : AppState>(
 
     abstract fun getData(word: String, isOnline: Boolean)
 
-    // обрабатываем ошибки в конкретной имплементации базовой ВьюМодели
     abstract fun handleError(error: Throwable)
 }
