@@ -3,13 +3,16 @@ package ru.geekbrains.dictionary.ui.history
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
+import ru.geekbrains.dictionary.R
 import ru.geekbrains.dictionary.data.AppState
 import ru.geekbrains.dictionary.data.DataModel
 import ru.geekbrains.dictionary.databinding.ActivityHistoryBinding
 import ru.geekbrains.dictionary.ui.base.BaseActivity
 import ru.geekbrains.dictionary.utils.isOnline
+import ru.geekbrains.utils.viewById
 
 
 class HistoryActivity : BaseActivity<AppState>() {
@@ -17,6 +20,8 @@ class HistoryActivity : BaseActivity<AppState>() {
     private lateinit var binding: ActivityHistoryBinding
     override lateinit var model: HistoryViewModel
     protected var isNetworkAvailable: Boolean = false
+    private val historyActivityRecyclerview by viewById<RecyclerView>(R.id.history_activity_recyclerview)
+
     private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +53,7 @@ class HistoryActivity : BaseActivity<AppState>() {
     }
 
     private fun initViews() {
-        binding.historyActivityRecyclerview.adapter = adapter
+        historyActivityRecyclerview.adapter = adapter
     }
 
     override fun renderData(appState: AppState) {
