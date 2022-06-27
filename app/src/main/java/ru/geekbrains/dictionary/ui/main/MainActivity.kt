@@ -58,6 +58,7 @@ class MainActivity : BaseActivity<AppState>() {
         }
     }
 
+
     private fun initViews() {
         binding.searchButtonActivityMain.setOnClickListener {
             var word = binding.wordEditText.text.toString()
