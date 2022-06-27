@@ -16,5 +16,4 @@ class App : Application() {
             modules(listOf(application, mainScreen, historyScreen))
         }
     }
-
 }
