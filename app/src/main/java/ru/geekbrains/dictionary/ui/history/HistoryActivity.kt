@@ -56,6 +56,7 @@ class HistoryActivity : BaseActivity<AppState>() {
         historyActivityRecyclerview.adapter = adapter
     }
 
+
     override fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
