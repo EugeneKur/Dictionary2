@@ -29,12 +29,14 @@ val application = module {
         RepositoryLocalImpl(RoomDataBaseImpl(get()))
     }
 }
+
 val mainScreen = module {
     scope(named<MainActivity>()) {
         scoped { MainInteractor(get(), get()) }
         viewModel { MainViewModel(get()) }
     }
 }
+
 val historyScreen = module {
     scope(named<HistoryActivity>()) {
         scoped { HistoryInteractor(get(), get()) }
