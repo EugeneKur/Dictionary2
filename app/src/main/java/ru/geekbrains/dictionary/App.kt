@@ -8,7 +8,6 @@ import ru.geekbrains.dictionary.di.historyScreen
 import ru.geekbrains.dictionary.di.mainScreen
 
 class App : Application() {
-
     override fun onCreate() {
         super.onCreate()
         startKoin {
