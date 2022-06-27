@@ -30,6 +30,7 @@ val application = module {
     }
 }
 
+
 val mainScreen = module {
     scope(named<MainActivity>()) {
         scoped { MainInteractor(get(), get()) }
